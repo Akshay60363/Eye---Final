@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta charset="UTF-8">
+<title>Secure Authentication</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/static/img/favicon.png">
+<link href='https://fonts.googleapis.com/css?family=Roboto:300,400' rel='stylesheet' type='text/css'><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="stylesheet" type=text/css href="{{url_for('static',filename='css/login.css')}}" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script language="javascript">
+
+function check2(form)
+{
+	if(form.cid.value == "" || form.pin.value == "")
+	{
+		alert("Error Enter Pin or Cliend Id")
+		return false;
+
+	}
+	else
+	{
+		return true;
+	}
+}
+    function check(form)
+    {
+      if(form.name.value == "" )
+      {
+        alert("Error Enter Name")
+        return false;
+    
+      }
+      if(form.cid.value == "" )
+      {
+        alert("Error Enter Client ID")
+        return false;
+    
+      }
+      if( form.cid.value == "" || isNaN( form.cid.value))
+        {
+            alert( "Please provide a Rollnumber No in the format Digit." );
+            return false;
+        }
+    
+      if(form.pin.value == "" )
+      {
+        alert("Error Enter PIN Number")
+        return false;
+    
+      }
+    
+      if( form.pin.value == "" || isNaN( form.pin.value) || form.pin.value.length != 4 )
+        {
+            alert( "Please provide a PIN No in the format 123 and 4 Digit." );
+            return false;
+        }
+      var email = form.emailid.value;
+      atpos = email.indexOf("@");
+      dotpos = email.lastIndexOf(".");
+      if (email == "" || atpos < 1 || ( dotpos - atpos < 2 ))
+      {
+          alert("Please enter correct email ID")
+          return false;
+      }
+      if( form.mobile.value == "" || isNaN( form.mobile.value) || form.mobile.value.length != 10 )
+        {
+            alert( "Please provide a Mobile No in the format 123 and 10 Digit." );
+            return false;
+        }
+    
+    
+      else
+      {
+        return true;
+      }
+    }
+    
+    function check1(form)
+    {
+      if(form.cid.value == "")
+      {
+        alert("Error Enter Cliend Id")
+        return false;
+      }
+    
+    
+      else
+      {
+          return true;
+      }
+    
+    }
+    
+    
+    </script>
+    
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div id="back">
+  <div class="backRight"></div>
+  <div class="backLeft"></div>
+</div>
+
+<div id="slideBox">
+  <div class="topLayer">
+
+    <!-- Left - Register Form -->
+    <div class="left">
+      
+    </div>
+
+    <!-- End Register Form -->
+
+    <!-- Right - Login Form -->
+    
+    <div class="right">
+      <center><h2><font color="blue">Three Layer Authentication System</font></h2></center>
+          {% if message %}
+            <div class="alert alert-success alert-dismissable" role="alert" style="margin-top: 20px; margin-right: 20px; margin-left: 20px">
+              <button class="close" type="button" data-dismiss="alert" aria-label="close">
+                <span aria-hidden="true">x</span>
+              </button>
+              {{message}}
+            </div>
+          {% endif %}
+      
+      <div class="content">
+        <div class="login">
+          
+          <div class="login-triangle"></div>
+          <h2 class="login-header" style="color: #FFFFFF">User Login</h2>
+          <form method="post" action="/login1" class="login-container">
+            {%if results%}
+            <p><input type="text" placeholder="Client Id" name="cid" value="{{ results[0] }}" readonly></p>
+            <p><input type="password" placeholder="Pin" name="pin" value="{{ results[1] }}"></p>
+            {%else%}
+            <p><input type="text" placeholder="Client Id" name="cid" value=""></p>
+            
+            <p><input type="text" placeholder="Pin" name="pin" value=""></p>
+            {%endif%}
+            <p><input type="text" placeholder="OTP" name="otp" value=""></p>
+            <p><input type="submit" value="Log in" onclick="return check2(this.form)"></p>
+            
+            
+
+          </form>
+        </div>
+          
+      </div>
+    </div>
+    <!-- End Login Form -->
+  </div>
+</div>
+
+
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script type="text/javascript"
+         src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>
+
+   
