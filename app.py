@@ -252,7 +252,22 @@ def detection():
     process_this_frame = True
     while True:
         ret, frame = cam.read()
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        if not ret or frame is None:
+            continue
+
+        # dlib detector expects 8-bit gray or RGB input.
+        if frame.dtype != np.uint8:
+            frame = cv2.convertScaleAbs(frame)
+
+        if len(frame.shape) == 2:
+            gray = frame
+        elif len(frame.shape) == 3 and frame.shape[2] == 4:
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGRA2GRAY)
+        else:
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+        if gray.dtype != np.uint8:
+            gray = gray.astype(np.uint8)
         rects = detector(gray, 0)
         for rect in rects:
             shape = predictor(gray, rect)
