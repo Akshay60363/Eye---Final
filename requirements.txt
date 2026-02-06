@@ -1,0 +1,13 @@
+Flask
+Flask-SocketIO
+numpy
+pandas
+PyMySQL
+opencv-python
+Pillow
+face-recognition
+dlib
+pyotp
+scipy
+scikit-learn
+tqdm
